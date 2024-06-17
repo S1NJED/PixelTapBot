@@ -1,10 +1,10 @@
 from Battle import Battle
 from Pixelverse import UserPixel
-import json
 from random import randint
 import asyncio
 from colorama import Fore, Style, init, Back 
 import os
+from time import sleep
 
 def clear():
     if os.name == 'nt':
@@ -65,9 +65,15 @@ async def main():
         clear()   
 
 if __name__ == '__main__':
-    try:
-        asyncio.run(main())       
-    except KeyboardInterrupt:
-        print("                                        > Goodbye :)")
-    
-    
+    while True:
+        try:
+            asyncio.run(main())       
+        except KeyboardInterrupt:
+            print("                                        > Goodbye :)")
+            break
+        except:
+            clear()
+            print("BOT HAS CRASHED :(")
+            print("It can be a code error OR most of the time is their server that are in maintenace or broken, go check it...")
+            print("Trying again in 60 seconds ...")
+            sleep(60)
