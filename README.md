@@ -1,13 +1,13 @@
 # PixelTap Bot by S1NJED
 
-✅ Auto claim rewards
-✅ Auto fight
-✅ Auto upgrade pets
+✅ Auto claim rewards<br>
+✅ Auto fight<br>
+✅ Auto upgrade pets<br>
 
 TODO:
 
-❌ Auto Claim Daily
-❌ Auto buy pets
+❌ Auto Claim Daily<br>
+❌ Auto buy pets<br>
 
 ## Installation
 
