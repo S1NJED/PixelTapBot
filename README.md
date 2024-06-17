@@ -1,5 +1,7 @@
 # PixelTap Bot by S1NJED
 
+![sample](images/screen.png)
+
 ✅ Auto claim rewards<br>
 ✅ Auto fight<br>
 ✅ Auto upgrade pets<br>
