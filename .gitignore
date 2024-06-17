@@ -1,0 +1,6 @@
+*env
+__pycache__
+*.bat
+*.zip
+test*
+*copy*
