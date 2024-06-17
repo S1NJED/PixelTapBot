@@ -58,3 +58,8 @@ class UserPixel:
         url = "https://api-clicker.pixelverse.xyz/api/battles/my/stats"
         req = requests.get(url, headers=self.headers)
         return req.json()
+    
+    def isBroken(self):
+        url = "https://api-clicker.pixelverse.xyz/api/tasks/my"
+        req = requests.get(url, headers=self.headers)
+        return req.status_code == 500

@@ -71,9 +71,18 @@ if __name__ == '__main__':
         except KeyboardInterrupt:
             print("                                        > Goodbye :)")
             break
-        except:
+        except Exception as err:
             clear()
             print("BOT HAS CRASHED :(")
-            print("It can be a code error OR most of the time is their server that are in maintenace or broken, go check it...")
-            print("Trying again in 60 seconds ...")
-            sleep(60)
+            pixelverse = UserPixel()
+            
+            if pixelverse.isBroken():
+                print(f"Pixelverse seems to be down for the moment, retrying again in 5 minutes ...")
+                sleep(60*5)
+            else:
+                print("The problem does not come from the server, try to restart the bot or if the problem persist open a ticket with a screen of this error ...")
+                print(err)
+                
+                print("Trygin again in 60 seconds ...")
+                sleep(60)
+                
