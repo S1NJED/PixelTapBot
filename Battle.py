@@ -5,6 +5,7 @@ from random import randint
 from colorama import Fore, Style, Back
 from time import sleep
 from threading import Thread
+from time import time
 
 class Battle:
     
@@ -105,7 +106,7 @@ class Battle:
                     print(f"{self.space}> You {Fore.WHITE}{Back.GREEN if result=='WIN' else Back.RED}{result}{Style.RESET_ALL} {Style.BRIGHT}{reward}{Style.RESET_ALL} coins !")
                     
                     # served send 41
-                    await self.websocket.recv()   
+                    await self.websocket.recv() 
                     self.stop_event.set()
                     # print(f"{self.space}> End of the match !")
                     return
@@ -128,14 +129,14 @@ class Battle:
                     pass
     
     async def handleWssFreeze(self, seconds: int):
-        await asyncio.sleep(seconds)
-        
-        if self.stop_event.is_set():
-            return
-        
-        self.stop_event.set()
-        self.websocket.close()
-        print(f"bot wss has froze, bot is restarting ...")
+        timeToReach = time() + seconds
+
+        while not self.stop_event.is_set():
+            if time() > timeToReach:
+                self.websocket.close()
+                print(f"bot wss has froze, bot is restarting ...")
+
+            sleep(0.1)
         
     async def connect(self):
         uri = "wss://api-clicker.pixelverse.xyz/socket.io/?EIO=4&transport=websocket"
