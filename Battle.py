@@ -57,7 +57,8 @@ class Battle:
         while not self.stop_event.is_set():
             try:
                 data = await self.websocket.recv()
-            except:
+            except Exception as err:
+                self.stop_event.set()
                 return
             
             if data.startswith('42'):
@@ -106,7 +107,7 @@ class Battle:
                     print(f"{self.space}> You {Fore.WHITE}{Back.GREEN if result=='WIN' else Back.RED}{result}{Style.RESET_ALL} {Style.BRIGHT}{reward}{Style.RESET_ALL} coins !")
                     
                     # served send 41
-                    await self.websocket.recv() 
+                    await self.websocket.recv()
                     self.stop_event.set()
                     # print(f"{self.space}> End of the match !")
                     return
