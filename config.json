@@ -1,7 +1,7 @@
 {
-  "secret": "1234567890",
-  "tgId": "12345",
-  "initData": "abcd1234",
-  "hitRate": 0.09,
-  "upgrade": "on"
+  "secret": "",
+  "tgId": "",
+  "initData": "",
+  "hitRate": 0.082,
+  "auto_upgrade": true
 }

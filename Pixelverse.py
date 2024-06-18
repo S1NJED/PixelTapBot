@@ -19,11 +19,17 @@ class UserPixel:
         }
         self.space = "                                        "
 
+    def isBroken(self):
+        url = "https://api-clicker.pixelverse.xyz/api/tasks/my"
+        req = requests.get(url, headers=self.headers)
+        return req.status_code == 500
+
     def claim(self):
         """Claims mining rewards for the user."""
         url = "https://api-clicker.pixelverse.xyz/api/mining/claim"
         req = requests.post(url, headers=self.headers)
         data = req.json()
+        print(data)
         print(f"{self.space}> Claimed {Back.YELLOW + Fore.BLACK}{int(data['claimedAmount'])}{Style.RESET_ALL} coins !")
 
     def getUser(self):
@@ -39,7 +45,7 @@ class UserPixel:
         data = req.json()
         return data
 
-    def upgradePets(self, auto_upgrade=False):
+    def upgradePets(self, auto_upgrade: bool):
         """Manages pet upgrades based on the auto_upgrade parameter.
 
         Args:

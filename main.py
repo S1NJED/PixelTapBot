@@ -32,12 +32,9 @@ def split_chunk(var):
 
 async def main():
     """Main asynchronous function to run the Pixelverse bot."""
+    
     init()
     user = UserPixel()
-
-    # Read config file 
-    with open('./config.json', 'r') as config_file:
-        config = json.load(config_file)
 
     while True:
         try:
@@ -66,8 +63,10 @@ async def main():
             """
             print(message)
 
-            # Get auto-upgrade setting from config.json
-            auto_upgrade = config.get("upgrade", "on").lower() == "on"
+            # Read config file 
+            with open('./config.json', 'r') as config_file:
+                config = json.load(config_file)
+
 
             # Battle logic 
             battle = Battle()
@@ -75,7 +74,7 @@ async def main():
             del battle
 
             user.claim()
-            user.upgradePets(auto_upgrade=auto_upgrade)  # Pass auto_upgrade choice
+            user.upgradePets(auto_upgrade=config['auto_upgrade'])  # Pass auto_upgrade choice
 
             timeToWait = randint(5, 10)
             print(f"{user.space}> Waiting {Back.RED + Fore.WHITE}{timeToWait}{Style.RESET_ALL} seconds.")
@@ -96,7 +95,13 @@ if __name__ == '__main__':
             print(f"{UserPixel().space}> Goodbye :)")
             sys.exit(0)
         except Exception as e:
-            print(f"{UserPixel().space}> Critical error: {type(e).__name__} - {e}")
-            print(f"{UserPixel().space}> Restarting in 10 seconds...")
-            time.sleep(10)
+
+            if UserPixel().isBroken():
+                print(f"{UserPixel().space}> The server seems down, restarting in 5 minutes ...")
+                time.sleep(60*5)
+            else:
+                print(f"{UserPixel().space}> Critical error: {type(e).__name__} - {e}")
+                print(f"{UserPixel().space}> Restarting in 10 seconds...")
+                time.sleep(10)
+
             clear()
