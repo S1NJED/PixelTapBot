@@ -5,6 +5,7 @@ import asyncio
 from colorama import Fore, Style, init, Back 
 import os
 from time import sleep
+import traceback
 
 def clear():
     if os.name == 'nt':
@@ -64,6 +65,10 @@ async def main():
 
         clear()   
 
+''' TODO:
+POST https://api-clicker.pixelverse.xyz/api/pets/buy?tg-id=&secret=
+'''
+
 if __name__ == '__main__':
     while True:
         try:
@@ -73,6 +78,7 @@ if __name__ == '__main__':
             break
         except Exception as err:
             clear()
+            traceback.print_exc()
             print("BOT HAS CRASHED :(")
             pixelverse = UserPixel()
             
@@ -81,7 +87,6 @@ if __name__ == '__main__':
                 sleep(60*5)
             else:
                 print("The problem does not come from the server, try to restart the bot or if the problem persist open a ticket with a screen of this error ...")
-                print(err)
                 
                 print("Trygin again in 60 seconds ...")
                 sleep(60)

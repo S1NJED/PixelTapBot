@@ -4,6 +4,7 @@ import json
 from random import randint
 from colorama import Fore, Style, Back
 from time import sleep
+from threading import Thread
 
 class Battle:
     
@@ -125,8 +126,17 @@ class Battle:
                         self.superHit = False          
                 except:
                     pass
-
-
+    
+    async def handleWssFreeze(self, seconds: int):
+        await asyncio.sleep(seconds)
+        
+        if self.stop_event.is_set():
+            return
+        
+        self.stop_event.set()
+        self.websocket.close()
+        print(f"bot wss has froze, bot is restarting ...")
+        
     async def connect(self):
         uri = "wss://api-clicker.pixelverse.xyz/socket.io/?EIO=4&transport=websocket"
         
@@ -162,7 +172,9 @@ class Battle:
             
             listenerMsgTask = asyncio.create_task(self.listenerMsg())
             hitTask = asyncio.create_task(self.sendHit())
-
+            handleWssFreeze = asyncio.create_task(self.handleWssFreeze(180))
+            
+            await handleWssFreeze
             await listenerMsgTask
             await hitTask
             
