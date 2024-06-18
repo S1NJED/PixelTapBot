@@ -29,7 +29,6 @@ class UserPixel:
         url = "https://api-clicker.pixelverse.xyz/api/mining/claim"
         req = requests.post(url, headers=self.headers)
         data = req.json()
-        print(data)
         print(f"{self.space}> Claimed {Back.YELLOW + Fore.BLACK}{int(data['claimedAmount'])}{Style.RESET_ALL} coins !")
 
     def getUser(self):
