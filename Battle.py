@@ -3,7 +3,6 @@ import websockets
 import json
 from random import randint
 from colorama import Fore, Style, Back
-from time import sleep
 from threading import Thread
 from time import time
 
@@ -102,9 +101,8 @@ class Battle:
                     result = data[1]['result']
                     reward = data[1]['reward']
 
-                    sleep(0.3)
-                    print('') 
-                    print(f"{self.space}> You {Fore.WHITE}{Back.GREEN if result=='WIN' else Back.RED}{result}{Style.RESET_ALL} {Style.BRIGHT}{reward}{Style.RESET_ALL} coins !")
+                    await asyncio.sleep(0.5)
+                    print(f"\n{self.space}> You {Fore.WHITE}{Back.GREEN if result=='WIN' else Back.RED}{result}{Style.RESET_ALL} {Style.BRIGHT}{reward}{Style.RESET_ALL} coins !")
                     
                     # served send 41
                     await self.websocket.recv()
@@ -134,11 +132,12 @@ class Battle:
 
         while not self.stop_event.is_set():
             if time() > timeToReach:
+                print("time is reach wss is close")
                 self.websocket.close()
                 print(f"bot wss has froze, bot is restarting ...")
 
-            await asyncio.sleep(0.1)
-        
+            await asyncio.sleep(0.001)
+
     async def connect(self):
         uri = "wss://api-clicker.pixelverse.xyz/socket.io/?EIO=4&transport=websocket"
         
@@ -176,7 +175,5 @@ class Battle:
             hitTask = asyncio.create_task(self.sendHit())
             handleWssFreeze = asyncio.create_task(self.handleWssFreeze(180))
             
-            await listenerMsgTask
-            await hitTask
-            await handleWssFreeze
+            await asyncio.gather(listenerMsgTask, hitTask, handleWssFreeze)
             
