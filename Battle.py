@@ -55,7 +55,8 @@ class Battle:
         while not self.stop_event.is_set():
             try:
                 data = await self.websocket.recv()
-            except Exception as e:
+            except Exception as err:
+                self.stop_event.set()
                 return
 
             if data.startswith('42'):
@@ -95,7 +96,7 @@ class Battle:
                     result = data[1]['result']
                     reward = data[1]['reward']
 
-                    await asyncio.sleep(0.3)
+                    await asyncio.sleep(0.5)
                     print('')
                     print(
                         f"{self.space}> You {Fore.WHITE}{Back.GREEN if result == 'WIN' else Back.RED}{result}{Style.RESET_ALL} {Style.BRIGHT}{reward}{Style.RESET_ALL} coins !")
@@ -169,3 +170,4 @@ class Battle:
             # handleWssFreeze = asyncio.create_task(self.handleWssFreeze(180))
             
             await asyncio.gather(listenerMsgTask, hitTask)
+
