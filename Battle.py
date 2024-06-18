@@ -136,7 +136,7 @@ class Battle:
                 self.websocket.close()
                 print(f"bot wss has froze, bot is restarting ...")
 
-            sleep(0.1)
+            await asyncio.sleep(0.1)
         
     async def connect(self):
         uri = "wss://api-clicker.pixelverse.xyz/socket.io/?EIO=4&transport=websocket"
@@ -175,7 +175,7 @@ class Battle:
             hitTask = asyncio.create_task(self.sendHit())
             handleWssFreeze = asyncio.create_task(self.handleWssFreeze(180))
             
-            await handleWssFreeze
             await listenerMsgTask
             await hitTask
+            await handleWssFreeze
             
