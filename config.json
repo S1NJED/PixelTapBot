@@ -2,6 +2,6 @@
   "secret": "",
   "tgId": "",
   "initData": "",
-  "hitRate": 0.082,
+  "hitRate": 0.1,
   "auto_upgrade": true
 }
