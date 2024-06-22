@@ -1,5 +1,7 @@
 # PixelTap Bot by S1NJED
 
+⚠️ Pixelverse don't work on PC anymore **BUT** you can still retrieve the needed credentials in the Network tab and the bot still work (22/06/24)
+
 ![sample](images/screen.png)
 
 ✅ Auto claim rewards<br>
